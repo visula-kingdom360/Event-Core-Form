@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EventCore Vendor Form</title>
+
+  <style>
+    :root {
+      --ec-green: #00ff88;
+      --ec-dark: #003b2b;
+      --ec-line: #e5e7eb;
+      --ec-text: #1f2937;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      background: #ffffff;
+      font-family: "Poppins", system-ui, sans-serif;
+      color: var(--ec-text);
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 14px;
+      border: 1px solid #f0f0f0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+      margin: 0 0 4px;
+      font-size: 1.8rem;
+      color: var(--ec-dark);
+      font-weight: 600;
+    }
+
+    p.sub {
+      margin: 0 0 25px;
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+
+    .section-title {
+      margin: 25px 0 15px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ec-dark);
+      padding-left: 12px;
+      border-left: 4px solid var(--ec-green);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .grid-1 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+      display: block;
+      color: #374151;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--ec-line);
+      border-radius: 10px;
+      background: #ffffff;
+      font-size: 0.85rem;
+      transition: 0.2s;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--ec-green);
+      box-shadow: 0 0 0 2px rgba(0,255,136,0.25);
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    /* Type of Entity row – keep on one line on desktop */
+    .checkbox-row {
+      display: flex;
+      gap: 30px;
+      flex-wrap: nowrap;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .checkbox-row label {
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+
+    input[type="file"] {
+      padding: 6px;
+    }
+
+    /* Bigger checkboxes */
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Subscription table */
+    .table-box {
+      border: 1px solid var(--ec-line);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      table-layout: fixed;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    th {
+      background: #f9fafb;
+      font-weight: 600;
+    }
+
+    /* Column widths & alignment */
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 55%;
+      text-align: left;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 25%;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    th:nth-child(3),
+    td:nth-child(3) {
+      width: 20%;
+      text-align: center;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Declaration section */
+    .declaration {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #4b5563;
+      line-height: 1.55;
+    }
+
+    .declaration p {
+      margin: 4px 0;
+    }
+
+    .declaration ol {
+      margin: 6px 0 0 18px;
+      padding: 0;
+    }
+
+    .declaration li {
+      margin-bottom: 4px;
+    }
+
+    /* Signature boxes */
+    .signature-row {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+    }
+
+    .signature-box {
+      padding: 12px;
+      border: 1px dashed var(--ec-line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    /* Buttons */
+    button {
+      margin-top: 20px;
+      padding: 12px 26px;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--ec-dark);
+      color: white;
+      border-bottom: 3px solid #002a1f;
+    }
+
+    .btn-primary:hover {
+      background: #004c38;
+    }
+
+    .btn-secondary {
+      background: #f3f4f6;
+      color: #374151;
+      margin-right: 10px;
+    }
+
+    @media (max-width: 700px) {
+      .grid-2,
+      .signature-row {
+        grid-template-columns: 1fr;
+      }
+
+      .checkbox-row {
+        flex-wrap: wrap;
+        gap: 12px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>EventCore Vendor Form</h1>
+    <p class="sub">Fill the details below to update your EventCore vendor profile.</p>
+
+    <form id="vendorForm" enctype="multipart/form-data">
+      <!-- 1. VENDOR INFORMATION -->
+      <div class="section-title">Vendor Information</div>
+
+      <div class="grid-2">
+        <div>
+          <label>Registered Business / Individual Full Name *</label>
+          <input type="text" name="business_name" required>
+        </div>
+        <div>
+          <label>Trading Name (if different)</label>
+          <input type="text" name="trading_name">
+        </div>
+        <div>
+          <label>Business Registration Number / NIC</label>
+          <input type="text" name="registration_number">
+        </div>
+        <div>
+          <label>TIN / VAT (if applicable)</label>
+          <input type="text" name="tin_vat">
+        </div>
+      </div>
+
+      <label style="margin-top:15px;">Type of Entity</label>
+      <div class="checkbox-row">
+        <label><input type="radio" name="entity_type" value="sole_proprietorship"> Sole Proprietorship</label>
+        <label><input type="radio" name="entity_type" value="partnership"> Partnership</label>
+        <label><input type="radio" name="entity_type" value="private_limited"> Private Limited Company</label>
+        <label><input type="radio" name="entity_type" value="other"> Other</label>
+      </div>
+
+      <label style="margin-top:15px;">Registered Address</label>
+      <textarea name="registered_address"></textarea>
+
+      <div class="grid-2" style="margin-top:12px;">
+        <div>
+          <label>Contact Person</label>
+          <input type="text" name="contact_person">
+        </div>
+        <div>
+          <label>Contact Number</label>
+          <input type="tel" name="contact_number">
+        </div>
+      </div>
+
+      <label style="margin-top:12px;">Email Address</label>
+      <input type="email" name="email">
+
+      <label style="margin-top:12px;">Website / Social Links</label>
+      <textarea name="social_links" placeholder="Instagram, Facebook, Website, etc."></textarea>
+
+      <!-- 2. PLATFORM DETAILS -->
+      <div class="section-title">Platform Account Details</div>
+
+      <div class="grid-2">
+        <div>
+          <label>Account Username</label>
+          <input type="text" name="username">
+        </div>
+        <div>
+          <label>Business Categories</label>
+          <textarea name="business_categories"></textarea>
+        </div>
+      </div>
+
+      <label style="margin-top:12px;">Business Description</label>
+      <textarea name="business_description"></textarea>
+
+      <div class="grid-2" style="margin-top:12px;">
+        <div>
+          <label>Business Logo</label>
+          <input type="file" name="business_logo" accept="image/*">
+        </div>
+        <div>
+          <label>Sample Images (optional)</label>
+          <input type="file" name="sample_images[]" accept="image/*" multiple>
+        </div>
+      </div>
+
+      <!-- 3. SUBSCRIPTION PLAN -->
+      <div class="section-title">Selected Subscription Plan</div>
+
+      <div class="table-box">
+        <table>
+          <tr>
+            <th>Plan</th>
+            <th>Fee (LKR)</th>
+            <th>Select</th>
+          </tr>
+
+          <tr>
+            <td>Basic Annual Subscription (12 Months)</td>
+            <td>12,500</td>
+            <td><input type="checkbox" name="plans[]" value="basic_annual"></td>
+          </tr>
+
+          <tr>
+            <td>Featured Listing (Weekly)</td>
+            <td>2,000</td>
+            <td><input type="checkbox" name="plans[]" value="featured_weekly"></td>
+          </tr>
+
+          <tr>
+            <td>Featured Listing (Monthly)</td>
+            <td>5,000</td>
+            <td><input type="checkbox" name="plans[]" value="featured_monthly"></td>
+          </tr>
+
+          <tr>
+            <td>Promotional Banner (Weekly)</td>
+            <td>4,500</td>
+            <td><input type="checkbox" name="plans[]" value="banner_weekly"></td>
+          </tr>
+
+          <tr>
+            <td>Promotional Banner (Monthly)</td>
+            <td>10,000</td>
+            <td><input type="checkbox" name="plans[]" value="banner_monthly"></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 4. DECLARATION -->
+      <div class="section-title">Declaration by Vendor</div>
+
+      <div class="declaration">
+        <p>I/We hereby declare that:</p>
+        <ol>
+          <li>All information provided herein is true and accurate.</li>
+          <li>I/We have read and understood the Vendor Agreement and agree to all terms.</li>
+          <li>I/We acknowledge that Eventcore Global (Pvt) Ltd is not liable for the nature, legality, or quality of my products/services.</li>
+          <li>I/We confirm all goods/services comply with Sri Lankan laws.</li>
+          <li>I/We authorize Eventcore Global to use our business name, logo, and content for platform display and promotions.</li>
+        </ol>
+      </div>
+
+      <div class="signature-row">
+        <div class="signature-box">
+          <label>Name (On behalf of Vendor)</label>
+          <input type="text" name="vendor_name">
+        </div>
+
+        <div class="signature-box">
+          <label>Upload Signature *</label>
+          <input type="file" name="signature" required accept="image/*">
+        </div>
+
+        <div class="signature-box">
+          <label>Date</label>
+          <input type="date" name="date">
+        </div>
+      </div>
+
+      <!-- BUTTONS -->
+      <button class="btn-secondary" type="reset">Reset</button>
+      <button class="btn-primary" type="submit" onclick="submitForm()">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    function submitForm() {
+      const form = document.getElementById('vendorForm');
+      const formData = new FormData(form);
+      
+      fetch('save_form.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('Form submitted successfully!');
+          window.location.href = 'success.php';
+        } else {
+          alert('Error: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while submitting the form.');
+      });
+    }
+  </script>
+</body>
+</html>
