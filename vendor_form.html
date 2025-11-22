@@ -413,16 +413,17 @@
 
       <!-- BUTTONS -->
       <button class="btn-secondary" type="reset">Reset</button>
-      <button class="btn-primary" type="submit" onclick="submitForm()">Submit</button>
+      <button class="btn-primary" type="submit">Submit</button>
     </form>
   </div>
 
   <script>
-    function submitForm() {
-      const form = document.getElementById('vendorForm');
-      const formData = new FormData(form);
+    document.getElementById('vendorForm').addEventListener('submit', function(e) {
+      e.preventDefault();
       
-      fetch('save_form.php', {
+      const formData = new FormData(this);
+      
+      fetch('save_vendor.php', {
         method: 'POST',
         body: formData
       })
@@ -439,7 +440,7 @@
         console.error('Error:', error);
         alert('An error occurred while submitting the form.');
       });
-    }
+    });
   </script>
 </body>
 </html>

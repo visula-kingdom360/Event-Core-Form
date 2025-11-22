@@ -1,6 +1,11 @@
 <?php
 header('Content-Type: application/json');
-require "config.php";
+try {
+    require "config.php";
+} catch (Exception $e) {
+    echo json_encode(['success' => false, 'message' => 'Database connection failed: ' . $e->getMessage()]);
+    exit;
+}
 
 // -------------------------------
 // FILE UPLOAD HELPERS
@@ -88,9 +93,14 @@ $vendor_name     = $_POST['vendor_name'] ?? null;
 $signature_path  = uploadSingleFile("signature");
 $date            = $_POST['date']        ?? null;
 
-// (Optional) basic required validation on backend as well
+// Validation
 if (empty($business_name)) {
     echo json_encode(['success' => false, 'message' => 'Business name is required']);
+    exit;
+}
+
+if (empty($signature_path)) {
+    echo json_encode(['success' => false, 'message' => 'Signature file is required']);
     exit;
 }
 
